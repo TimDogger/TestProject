@@ -17,7 +17,7 @@ namespace UI
         [SerializeField]
         private TextMeshProUGUI objectsCountText;
 
-        private void Update()
+        private void LateUpdate()
         {
             if (!fpsText || !objectsCountText) return;
 
