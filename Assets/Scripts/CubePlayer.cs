@@ -11,11 +11,28 @@ public class CubePlayer : NetworkBehaviour
     [SerializeField]
     private NetworkIdentity networkIdentity;
 
+    [SerializeField]
+    private CubePlayerUI cubePlayerUI;
+    
+    private CubePlayerUI CubePlayerUI
+    {
+        get
+        {
+            if (!cubePlayerUI)
+            {
+                cubePlayerUI = FindObjectOfType<CubePlayerUI>();
+            }
+
+            return cubePlayerUI;
+        }
+    }
+
     private void Start()
     {
         if (networkIdentity.isLocalPlayer)
         {
             meshRenderer.enabled = false;
+            CubePlayerUI.InitializePlayer(this);
         }
     }
 
