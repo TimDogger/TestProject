@@ -4,7 +4,10 @@ using UnityEngine.UI;
 public class CubePlayerUI : MonoBehaviour
 {
     [SerializeField]
-    private Button moveForwardButton;
+    private Button blockRollButton;
+
+    [SerializeField]
+    private Canvas canvas3d;
 
     [SerializeField]
     private CubePlayer cubePlayer;
@@ -15,6 +18,11 @@ public class CubePlayerUI : MonoBehaviour
     {
         this.cubePlayer = cubePlayer;
         movement = cubePlayer.GetComponent<Movement>();
+        canvas3d.worldCamera = Camera.main;
+        if (Application.platform == RuntimePlatform.WindowsEditor)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
     
     public void OnMoveForwardDown()
@@ -36,10 +44,24 @@ public class CubePlayerUI : MonoBehaviour
         if (!movement) return;
         
         movement.BlockRoll = !movement.BlockRoll;
-        Image image = moveForwardButton.GetComponent<Image>();
+        Image image = blockRollButton.GetComponent<Image>();
         if (image)
         {
             image.color = movement.BlockRoll ? Color.red : Color.white;
         }
+    }
+    
+    public void SpawnNpc()
+    {
+        if (!cubePlayer) return;
+
+        cubePlayer.SpawnNPC();
+    }
+    
+    public void Shoot()
+    {
+        if (!cubePlayer) return;
+
+        cubePlayer.Shoot();
     }
 }

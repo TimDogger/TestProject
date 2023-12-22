@@ -12,7 +12,7 @@ public class Movement : MonoBehaviour
         get => blockRoll;
         set => blockRoll = value;
     }
-    
+
     [SerializeField]
     private Camera mainCamera;
 
@@ -28,12 +28,12 @@ public class Movement : MonoBehaviour
     private NetworkIdentity networkIdentity;
     private CharacterController characterController;
     private IA_General iaGeneral;
-    
+
     private Vector3 moveDirection;
     private Vector3 velocity;
     private Vector2 inputVector;
     private Vector3 rotationDelta;
-    
+
     private bool blockRoll = false;
 
     public void OnMove(InputAction.CallbackContext context)
@@ -42,7 +42,7 @@ public class Movement : MonoBehaviour
 
         inputVector = context.ReadValue<Vector2>();
     }
-    
+
     public void SetMovementInput(Vector2 input)
     {
         inputVector = input;
@@ -51,15 +51,15 @@ public class Movement : MonoBehaviour
     public void OnView(InputAction.CallbackContext context)
     {
         if (!networkIdentity.isLocalPlayer) return;
-        
+
         Vector2 mouseDelta = context.ReadValue<Vector2>();
         rotationDelta = new Vector3(-mouseDelta.y, mouseDelta.x, 0) * viewSencitivity * Time.fixedDeltaTime;
     }
-    
+
     public void OnViewGyro(InputAction.CallbackContext context)
     {
         if (!networkIdentity.isLocalPlayer) return;
-        
+
         Vector3 gyroDelta = context.ReadValue<Vector3>();
         Debug.Log(gyroDelta);
         rotationDelta = gyroDelta * -1;
@@ -69,6 +69,7 @@ public class Movement : MonoBehaviour
     {
         networkIdentity = GetComponent<NetworkIdentity>();
         characterController = GetComponent<CharacterController>();
+
         iaGeneral = new IA_General();
         if (UnityEngine.InputSystem.Gyroscope.current != null)
         {
@@ -95,20 +96,20 @@ public class Movement : MonoBehaviour
         if (!networkIdentity.isLocalPlayer) return;
 
         UpdateView();
-        UpdateMovement();        
+        UpdateMovement();
     }
 
     private void UpdateMovement()
     {
-        Vector3 forward = mainCamera ? mainCamera.transform.forward : transform.forward;
-        Vector3 right = mainCamera ? mainCamera.transform.right : transform.right;
-        moveDirection = (forward * inputVector.y + right * inputVector.x).normalized;
-
-        Vector3 targetVelocity = moveDirection * (moveSpeed * Time.fixedDeltaTime);
-        velocity = Vector3.SmoothDamp(velocity, targetVelocity, ref velocity, smoothMovementTime);
-        characterController.Move(velocity);
+        Vector3 currentLocation = transform.position;
+        float gravity = Physics.gravity.y;
+        Vector3 targetLocation = currentLocation +
+                                 transform.TransformDirection(new Vector3(inputVector.x, gravity, inputVector.y) *
+                                                              (moveSpeed * Time.fixedDeltaTime));
+        Vector3 nextLocation = Vector3.SmoothDamp(currentLocation, targetLocation, ref velocity, smoothMovementTime);
+        characterController.Move(nextLocation - currentLocation);
     }
-    
+
     private void UpdateView()
     {
         if (mainCamera)

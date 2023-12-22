@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
@@ -33,9 +31,9 @@ public class NPC : MonoBehaviour
         return new Vector3(randomX, 0, randomZ);
     }
     
-    private void Update()
+    private void FixedUpdate()
     {
-        timeSinceLastDirectionChange += Time.deltaTime;
+        timeSinceLastDirectionChange += Time.fixedDeltaTime;
         
         if (timeSinceLastDirectionChange >= directionChangeInterval)
         {
@@ -43,6 +41,6 @@ public class NPC : MonoBehaviour
             timeSinceLastDirectionChange = 0f;
         }
         
-        transform.Translate(moveDirection * (moveSpeed * Time.deltaTime));
+        transform.Translate(moveDirection * (moveSpeed * Time.fixedDeltaTime));
     }
 }

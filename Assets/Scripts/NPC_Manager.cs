@@ -17,56 +17,53 @@ public class NPC_Manager : NetworkBehaviour
     
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogWarning("Destroying duplicate.");
+            Destroy(gameObject);
+        }
     }
     
     public void RequestSpawnNPC(Vector3 position, Quaternion rotation)
     {
         if (isServer)
         {
-            SpawnNpc(position, rotation);
+            SpawnNpcInternal(position, rotation);
         }
         else
         {
-            CmdSpawnNPC(position, rotation);
+            Server_SpawnNPC(position, rotation);
         }
     }
     
     [Command]
-    private void CmdSpawnNPC(Vector3 position, Quaternion rotation)
+    private void Server_SpawnNPC(Vector3 position, Quaternion rotation)
     {
-        SpawnNpc(position, rotation);
+        SpawnNpcInternal(position, rotation);
     }
     
-    private void SpawnNpc(Vector3 position, Quaternion rotation)
+    [Command]
+    public void Server_RemoveAllNPCs()
+    {
+        RemoveAllNPCsInternal();
+    }
+    
+    private void SpawnNpcInternal(Vector3 position, Quaternion rotation)
     {
         NPC npc = Instantiate(npcPrefab, position, rotation);
+        NetworkServer.Spawn(npc.gameObject);
         npcs.Add(npc);
     }
     
-    public void RequestRemoveAllNPCs()
-    {
-        if (isServer)
-        {
-            RemoveAllNPCs();
-        }
-        else
-        {
-            CmdRemoveAllNPCs();
-        }
-    }
-    
-    [Command]
-    private void CmdRemoveAllNPCs()
-    {
-        RemoveAllNPCs();
-    }
-    
-    private void RemoveAllNPCs()
+    private void RemoveAllNPCsInternal()
     {
         foreach (NPC npc in npcs)
         {
-            Destroy(npc.gameObject);
+            NetworkServer.Destroy(npc.gameObject);
         }
         
         npcs.Clear();

@@ -1,19 +1,9 @@
-using System;
 using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CubePlayer : NetworkBehaviour
 {
-    [SerializeField]
-    private MeshRenderer meshRenderer;
-
-    [SerializeField]
-    private NetworkIdentity networkIdentity;
-
-    [SerializeField]
-    private CubePlayerUI cubePlayerUI;
-    
     private CubePlayerUI CubePlayerUI
     {
         get
@@ -26,6 +16,21 @@ public class CubePlayer : NetworkBehaviour
             return cubePlayerUI;
         }
     }
+    
+    [SerializeField]
+    private MeshRenderer meshRenderer;
+
+    [SerializeField]
+    private NetworkIdentity networkIdentity;
+    
+    [SerializeField]
+    private Projectile projectilePrefab;
+    
+    [SerializeField]
+    private Camera mainCamera;
+
+    private CubePlayerUI cubePlayerUI;
+    
 
     private void Start()
     {
@@ -33,22 +38,64 @@ public class CubePlayer : NetworkBehaviour
         {
             meshRenderer.enabled = false;
             CubePlayerUI.InitializePlayer(this);
+            mainCamera.gameObject.tag = "MainCamera";
+        }
+        else
+        {
+            mainCamera.enabled = false;
         }
     }
 
-    public void ShootArrow()
-    {
-        
-    }
-    
-    public void SpawnNpc(InputAction.CallbackContext context)
+    public void OnShootPerfomed(InputAction.CallbackContext context)
     {
         if (networkIdentity.isLocalPlayer && context.performed)
         {
-            Vector3 position = transform.position + transform.forward * 2f;
-            Quaternion rotation = transform.rotation;
-            
-            NPC_Manager.Instance.RequestSpawnNPC(position, rotation);
+            Shoot();
         }
+    }
+
+    public void Shoot()
+    {
+        if (!networkIdentity.isLocalPlayer) return;
+        
+        Vector3 position = Camera.main.transform.position + Camera.main.transform.forward * .3f;
+        Quaternion rotation = Camera.main.transform.rotation * Quaternion.Euler(90, 0, 0);
+            
+        if (isServer)
+        {
+            SpawnArrowInternal(position, rotation);
+        }
+        else
+        {
+            Server_SpawnArrow(position, rotation);
+        }
+    }
+    
+    public void OnSpawnNPCDown(InputAction.CallbackContext context)
+    {
+        if (networkIdentity.isLocalPlayer && context.performed)
+        {
+            SpawnNPC();
+        }
+    }
+
+    public void SpawnNPC()
+    {
+        Vector3 position = transform.position + transform.forward * 2f;
+        Quaternion rotation = transform.rotation;
+            
+        NPC_Manager.Instance.RequestSpawnNPC(position, rotation);
+    }
+    
+    [Command]
+    private void Server_SpawnArrow(Vector3 position, Quaternion rotation)
+    {
+        SpawnArrowInternal(position, rotation);
+    }
+    
+    private void SpawnArrowInternal(Vector3 position, Quaternion rotation)
+    {
+        var projectileGO = Instantiate(projectilePrefab.gameObject, position, rotation); 
+        NetworkServer.Spawn(projectileGO);
     }
 }

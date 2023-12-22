@@ -62,6 +62,15 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpawnArrow"",
+                    ""type"": ""Button"",
+                    ""id"": ""8ac9b160-18f7-4a9c-a0a7-9d4ebc3796cc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +161,17 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
                     ""action"": ""SpawnNPC"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7819d8f2-eacb-41d9-9aa2-0a7773189eee"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""SpawnArrow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -197,6 +217,7 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
         m_PlayerActions_Movement = m_PlayerActions.FindAction("Movement", throwIfNotFound: true);
         m_PlayerActions_MouseView = m_PlayerActions.FindAction("MouseView", throwIfNotFound: true);
         m_PlayerActions_SpawnNPC = m_PlayerActions.FindAction("SpawnNPC", throwIfNotFound: true);
+        m_PlayerActions_SpawnArrow = m_PlayerActions.FindAction("SpawnArrow", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -262,6 +283,7 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Movement;
     private readonly InputAction m_PlayerActions_MouseView;
     private readonly InputAction m_PlayerActions_SpawnNPC;
+    private readonly InputAction m_PlayerActions_SpawnArrow;
     public struct PlayerActionsActions
     {
         private @IA_General m_Wrapper;
@@ -270,6 +292,7 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_PlayerActions_Movement;
         public InputAction @MouseView => m_Wrapper.m_PlayerActions_MouseView;
         public InputAction @SpawnNPC => m_Wrapper.m_PlayerActions_SpawnNPC;
+        public InputAction @SpawnArrow => m_Wrapper.m_PlayerActions_SpawnArrow;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -291,6 +314,9 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
             @SpawnNPC.started += instance.OnSpawnNPC;
             @SpawnNPC.performed += instance.OnSpawnNPC;
             @SpawnNPC.canceled += instance.OnSpawnNPC;
+            @SpawnArrow.started += instance.OnSpawnArrow;
+            @SpawnArrow.performed += instance.OnSpawnArrow;
+            @SpawnArrow.canceled += instance.OnSpawnArrow;
         }
 
         private void UnregisterCallbacks(IPlayerActionsActions instance)
@@ -307,6 +333,9 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
             @SpawnNPC.started -= instance.OnSpawnNPC;
             @SpawnNPC.performed -= instance.OnSpawnNPC;
             @SpawnNPC.canceled -= instance.OnSpawnNPC;
+            @SpawnArrow.started -= instance.OnSpawnArrow;
+            @SpawnArrow.performed -= instance.OnSpawnArrow;
+            @SpawnArrow.canceled -= instance.OnSpawnArrow;
         }
 
         public void RemoveCallbacks(IPlayerActionsActions instance)
@@ -348,5 +377,6 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnMouseView(InputAction.CallbackContext context);
         void OnSpawnNPC(InputAction.CallbackContext context);
+        void OnSpawnArrow(InputAction.CallbackContext context);
     }
 }

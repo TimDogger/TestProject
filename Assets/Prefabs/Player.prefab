@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 290705243931705940}
   - component: {fileID: 1628582310295571533}
   - component: {fileID: 8539448192045998792}
+  - component: {fileID: 3240516164257908894}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -73,6 +74,9 @@ MonoBehaviour:
   syncInterval: 0
   meshRenderer: {fileID: 1915729488747070277}
   networkIdentity: {fileID: 2856543497032969106}
+  projectilePrefab: {fileID: 712286316275889128, guid: 0ee364fc1fffd01458b757ac705a6695,
+    type: 3}
+  mainCamera: {fileID: 1114375254113755348}
 --- !u!143 &3795700630026743415
 CharacterController:
   m_ObjectHideFlags: 0
@@ -112,7 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1114375254113755348}
-  moveSpeed: 5
+  moveSpeed: 50
   smoothMovementTime: 0.1
   viewSencitivity: 10
 --- !u!114 &290705243931705940
@@ -193,7 +197,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8606681450990141125}
         m_TargetAssemblyTypeName: CubePlayer, Assembly-CSharp
-        m_MethodName: SpawnNpc
+        m_MethodName: OnSpawnNPCDown
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -205,6 +209,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 121d28ad-2424-49dc-a4a0-604b82e666ab
     m_ActionName: PlayerActions/SpawnNPC[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8606681450990141125}
+        m_TargetAssemblyTypeName: CubePlayer, Assembly-CSharp
+        m_MethodName: OnShootPerfomed
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8ac9b160-18f7-4a9c-a0a7-9d4ebc3796cc
+    m_ActionName: PlayerActions/SpawnArrow[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerActions
@@ -256,10 +276,45 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 0
+--- !u!114 &3240516164257908894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347180064752514844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb803efbe62c34d7baece46c9ffebad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 4721844149908261447}
+  clientAuthority: 1
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChange: 1
+  onlySyncOnChangeCorrectionMultiplier: 2
+  rotationSensitivity: 0.01
+  compressRotation: 0
+  positionPrecision: 0.01
+  scalePrecision: 0.01
 --- !u!1 &8003858194358274216
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,9 +329,10 @@ GameObject:
   - component: {fileID: 8105166605926863338}
   - component: {fileID: 1114375254113755348}
   - component: {fileID: 7842673387175522831}
+  - component: {fileID: 820707421373423475}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -462,3 +518,37 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &820707421373423475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8003858194358274216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a553cb17010b2403e8523b558bffbc14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 2362767821184504239}
+  clientAuthority: 1
+  syncPosition: 0
+  syncRotation: 1
+  syncScale: 0
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 3
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
