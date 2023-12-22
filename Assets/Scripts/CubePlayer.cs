@@ -16,6 +16,8 @@ public class CubePlayer : NetworkBehaviour
             return cubePlayerUI;
         }
     }
+
+    public Camera PlayerCamera => mainCamera;
     
     [SerializeField]
     private MeshRenderer meshRenderer;

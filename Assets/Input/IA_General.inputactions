@@ -172,7 +172,7 @@
                 {
                     "name": "",
                     "id": "9543bba4-181e-496f-86ba-dc8c1ea2a822",
-                    "path": "<Touchscreen>/position",
+                    "path": "<Touchscreen>/primaryTouch/startPosition",
                     "interactions": "",
                     "processors": "",
                     "groups": "Android",
