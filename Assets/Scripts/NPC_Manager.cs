@@ -52,13 +52,13 @@ public class NPC_Manager : NetworkBehaviour
         }
     }
     
-    [Command]
+    [Command(requiresAuthority = false)]
     private void Server_SpawnNPC(Vector3 position, Quaternion rotation)
     {
         SpawnNpcInternal(position, rotation);
     }
     
-    [Command]
+    [Command(requiresAuthority = false)]
     private void Server_RemoveAllNPCs()
     {
         RemoveAllNPCsInternal();

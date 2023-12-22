@@ -80,6 +80,15 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ClearNPCs"",
+                    ""type"": ""Button"",
+                    ""id"": ""6823c1d1-bbed-4773-9b74-5a2c5f69a000"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -192,6 +201,17 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
                     ""action"": ""SpawnArrowTouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c0304eb0-b9c7-463f-a097-cb941a1cb84a"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""ClearNPCs"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -239,6 +259,7 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
         m_PlayerActions_SpawnNPC = m_PlayerActions.FindAction("SpawnNPC", throwIfNotFound: true);
         m_PlayerActions_SpawnArrow = m_PlayerActions.FindAction("SpawnArrow", throwIfNotFound: true);
         m_PlayerActions_SpawnArrowTouch = m_PlayerActions.FindAction("SpawnArrowTouch", throwIfNotFound: true);
+        m_PlayerActions_ClearNPCs = m_PlayerActions.FindAction("ClearNPCs", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -306,6 +327,7 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_SpawnNPC;
     private readonly InputAction m_PlayerActions_SpawnArrow;
     private readonly InputAction m_PlayerActions_SpawnArrowTouch;
+    private readonly InputAction m_PlayerActions_ClearNPCs;
     public struct PlayerActionsActions
     {
         private @IA_General m_Wrapper;
@@ -316,6 +338,7 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
         public InputAction @SpawnNPC => m_Wrapper.m_PlayerActions_SpawnNPC;
         public InputAction @SpawnArrow => m_Wrapper.m_PlayerActions_SpawnArrow;
         public InputAction @SpawnArrowTouch => m_Wrapper.m_PlayerActions_SpawnArrowTouch;
+        public InputAction @ClearNPCs => m_Wrapper.m_PlayerActions_ClearNPCs;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -343,6 +366,9 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
             @SpawnArrowTouch.started += instance.OnSpawnArrowTouch;
             @SpawnArrowTouch.performed += instance.OnSpawnArrowTouch;
             @SpawnArrowTouch.canceled += instance.OnSpawnArrowTouch;
+            @ClearNPCs.started += instance.OnClearNPCs;
+            @ClearNPCs.performed += instance.OnClearNPCs;
+            @ClearNPCs.canceled += instance.OnClearNPCs;
         }
 
         private void UnregisterCallbacks(IPlayerActionsActions instance)
@@ -365,6 +391,9 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
             @SpawnArrowTouch.started -= instance.OnSpawnArrowTouch;
             @SpawnArrowTouch.performed -= instance.OnSpawnArrowTouch;
             @SpawnArrowTouch.canceled -= instance.OnSpawnArrowTouch;
+            @ClearNPCs.started -= instance.OnClearNPCs;
+            @ClearNPCs.performed -= instance.OnClearNPCs;
+            @ClearNPCs.canceled -= instance.OnClearNPCs;
         }
 
         public void RemoveCallbacks(IPlayerActionsActions instance)
@@ -408,5 +437,6 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
         void OnSpawnNPC(InputAction.CallbackContext context);
         void OnSpawnArrow(InputAction.CallbackContext context);
         void OnSpawnArrowTouch(InputAction.CallbackContext context);
+        void OnClearNPCs(InputAction.CallbackContext context);
     }
 }

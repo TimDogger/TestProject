@@ -85,6 +85,11 @@ public class CubePlayerUI : MonoBehaviour
 
         cubePlayer.Shoot();
     }
+
+    public void ClearNPCs()
+    {
+        NPC_Manager.Instance.RequestRemoveAllNPCs();
+    }
     
     private PointerEventData GetPointerEventDataFromTouch(InputAction.CallbackContext context)
     {

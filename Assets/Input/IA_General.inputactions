@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "ClearNPCs",
+                    "type": "Button",
+                    "id": "6823c1d1-bbed-4773-9b74-5a2c5f69a000",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -168,6 +177,17 @@
                     "processors": "",
                     "groups": "Android",
                     "action": "SpawnArrowTouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c0304eb0-b9c7-463f-a097-cb941a1cb84a",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "ClearNPCs",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -83,7 +83,7 @@ public class CubePlayer : NetworkBehaviour
     {
         Vector3 position = transform.position + transform.forward * 2f;
         Quaternion rotation = transform.rotation;
-            
+        
         NPC_Manager.Instance.RequestSpawnNPC(position, rotation);
     }
     
