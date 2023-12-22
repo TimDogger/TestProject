@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class CubePlayerUI : MonoBehaviour
@@ -58,10 +60,38 @@ public class CubePlayerUI : MonoBehaviour
         cubePlayer.SpawnNPC();
     }
     
+    public void OnPointerDown(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            PointerEventData pointerEventData = GetPointerEventDataFromTouch(context);
+
+            if (!EventSystem.current.IsPointerOverGameObject(pointerEventData.pointerId))
+            {
+                Shoot();
+            }
+        }
+        else
+        {
+            Shoot();
+        }
+    }
+    
     public void Shoot()
     {
         if (!cubePlayer) return;
 
         cubePlayer.Shoot();
+    }
+    
+    private PointerEventData GetPointerEventDataFromTouch(InputAction.CallbackContext context)
+    {
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+        pointerEventData.pointerId = context.control.device.deviceId;
+        pointerEventData.position = context.ReadValue<Vector2>();
+
+        return pointerEventData;
     }
 }

@@ -61,7 +61,6 @@ public class Movement : MonoBehaviour
         if (!networkIdentity.isLocalPlayer) return;
 
         Vector3 gyroDelta = context.ReadValue<Vector3>();
-        Debug.Log(gyroDelta);
         rotationDelta = gyroDelta * -1;
     }
 

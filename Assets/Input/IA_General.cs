@@ -71,6 +71,15 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SpawnArrowTouch"",
+                    ""type"": ""Value"",
+                    ""id"": ""82bed23e-784d-449d-96f1-91e5854947a0"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -172,6 +181,17 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
                     ""action"": ""SpawnArrow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9543bba4-181e-496f-86ba-dc8c1ea2a822"",
+                    ""path"": ""<Touchscreen>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Android"",
+                    ""action"": ""SpawnArrowTouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -218,6 +238,7 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
         m_PlayerActions_MouseView = m_PlayerActions.FindAction("MouseView", throwIfNotFound: true);
         m_PlayerActions_SpawnNPC = m_PlayerActions.FindAction("SpawnNPC", throwIfNotFound: true);
         m_PlayerActions_SpawnArrow = m_PlayerActions.FindAction("SpawnArrow", throwIfNotFound: true);
+        m_PlayerActions_SpawnArrowTouch = m_PlayerActions.FindAction("SpawnArrowTouch", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -284,6 +305,7 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_MouseView;
     private readonly InputAction m_PlayerActions_SpawnNPC;
     private readonly InputAction m_PlayerActions_SpawnArrow;
+    private readonly InputAction m_PlayerActions_SpawnArrowTouch;
     public struct PlayerActionsActions
     {
         private @IA_General m_Wrapper;
@@ -293,6 +315,7 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
         public InputAction @MouseView => m_Wrapper.m_PlayerActions_MouseView;
         public InputAction @SpawnNPC => m_Wrapper.m_PlayerActions_SpawnNPC;
         public InputAction @SpawnArrow => m_Wrapper.m_PlayerActions_SpawnArrow;
+        public InputAction @SpawnArrowTouch => m_Wrapper.m_PlayerActions_SpawnArrowTouch;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -317,6 +340,9 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
             @SpawnArrow.started += instance.OnSpawnArrow;
             @SpawnArrow.performed += instance.OnSpawnArrow;
             @SpawnArrow.canceled += instance.OnSpawnArrow;
+            @SpawnArrowTouch.started += instance.OnSpawnArrowTouch;
+            @SpawnArrowTouch.performed += instance.OnSpawnArrowTouch;
+            @SpawnArrowTouch.canceled += instance.OnSpawnArrowTouch;
         }
 
         private void UnregisterCallbacks(IPlayerActionsActions instance)
@@ -336,6 +362,9 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
             @SpawnArrow.started -= instance.OnSpawnArrow;
             @SpawnArrow.performed -= instance.OnSpawnArrow;
             @SpawnArrow.canceled -= instance.OnSpawnArrow;
+            @SpawnArrowTouch.started -= instance.OnSpawnArrowTouch;
+            @SpawnArrowTouch.performed -= instance.OnSpawnArrowTouch;
+            @SpawnArrowTouch.canceled -= instance.OnSpawnArrowTouch;
         }
 
         public void RemoveCallbacks(IPlayerActionsActions instance)
@@ -378,5 +407,6 @@ public partial class @IA_General: IInputActionCollection2, IDisposable
         void OnMouseView(InputAction.CallbackContext context);
         void OnSpawnNPC(InputAction.CallbackContext context);
         void OnSpawnArrow(InputAction.CallbackContext context);
+        void OnSpawnArrowTouch(InputAction.CallbackContext context);
     }
 }

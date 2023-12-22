@@ -6,7 +6,10 @@ using UnityEngine;
 public class NPC : MonoBehaviour
 {
     [SerializeField]
-    private float moveSpeed = 5f;
+    private float minSpeed = 1f;
+    
+    [SerializeField]
+    private float maxSpeed = 5f;
     
     [SerializeField]
     private float timeSinceLastDirectionChange = 0f;
@@ -18,17 +21,24 @@ public class NPC : MonoBehaviour
     
     private NetworkIdentity networkIdentity;
     
+    private float currentSpeed = 0f;
+    
     private void Start()
     {
         moveDirection = GetRandomDirection();
     }
     
-    Vector3 GetRandomDirection()
+    private Vector3 GetRandomDirection()
     {
         float randomX = Random.Range(-1f, 1f);
         float randomZ = Random.Range(-1f, 1f);
         
         return new Vector3(randomX, 0, randomZ);
+    }
+    
+    private float GetRandomSpeed()
+    {
+        return Random.Range(minSpeed, maxSpeed);
     }
     
     private void FixedUpdate()
@@ -38,9 +48,10 @@ public class NPC : MonoBehaviour
         if (timeSinceLastDirectionChange >= directionChangeInterval)
         {
             moveDirection = GetRandomDirection();
+            currentSpeed = GetRandomSpeed();
             timeSinceLastDirectionChange = 0f;
         }
         
-        transform.Translate(moveDirection * (moveSpeed * Time.fixedDeltaTime));
+        transform.Translate(moveDirection * (currentSpeed * Time.fixedDeltaTime));
     }
 }

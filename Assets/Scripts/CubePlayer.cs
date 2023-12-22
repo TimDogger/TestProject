@@ -37,8 +37,8 @@ public class CubePlayer : NetworkBehaviour
         if (networkIdentity.isLocalPlayer)
         {
             meshRenderer.enabled = false;
-            CubePlayerUI.InitializePlayer(this);
             mainCamera.gameObject.tag = "MainCamera";
+            CubePlayerUI.InitializePlayer(this);
         }
         else
         {

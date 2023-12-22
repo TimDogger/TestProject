@@ -40,6 +40,18 @@ public class NPC_Manager : NetworkBehaviour
         }
     }
     
+    public void RequestRemoveAllNPCs()
+    {
+        if (isServer)
+        {
+            RemoveAllNPCsInternal();
+        }
+        else
+        {
+            Server_RemoveAllNPCs();
+        }
+    }
+    
     [Command]
     private void Server_SpawnNPC(Vector3 position, Quaternion rotation)
     {
@@ -47,7 +59,7 @@ public class NPC_Manager : NetworkBehaviour
     }
     
     [Command]
-    public void Server_RemoveAllNPCs()
+    private void Server_RemoveAllNPCs()
     {
         RemoveAllNPCsInternal();
     }

@@ -476,6 +476,7 @@ GameObject:
   - component: {fileID: 578263938409920174}
   - component: {fileID: 5577595226609953717}
   - component: {fileID: 2054346416148473366}
+  - component: {fileID: 2462773287458072273}
   m_Layer: 0
   m_Name: SceneUI
   m_TagString: Untagged
@@ -549,6 +550,23 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
+--- !u!114 &2462773287458072273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4193298737595825761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &5498283065581081148
 GameObject:
   m_ObjectHideFlags: 0
@@ -561,7 +579,6 @@ GameObject:
   - component: {fileID: 1659164801835530550}
   - component: {fileID: 4739113969732761324}
   - component: {fileID: 5758459866117414207}
-  - component: {fileID: 6256479319112540689}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -653,35 +670,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6256479319112540689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5498283065581081148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 5265773465442797413}
-          m_TargetAssemblyTypeName: CubePlayerUI, Assembly-CSharp
-          m_MethodName: Shoot
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &6703534972903534234
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,6 +680,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7002255171783147694}
   - component: {fileID: 5265773465442797413}
+  - component: {fileID: 4073013543257662577}
   m_Layer: 0
   m_Name: Player_UI
   m_TagString: Untagged
@@ -731,6 +720,73 @@ MonoBehaviour:
   blockRollButton: {fileID: 8576485048868162796}
   canvas3d: {fileID: 5577595226609953717}
   cubePlayer: {fileID: 0}
+--- !u!114 &4073013543257662577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6703534972903534234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 887422dd6e3ca9045a1ce8885f7eb1c4,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 872b1c82-4d91-43e1-8a3c-cd3f50256b9c
+    m_ActionName: PlayerActions/View
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 40f6e789-b2d7-4ca8-9af7-ceba0876d6fa
+    m_ActionName: PlayerActions/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c4b89f24-ef35-45ee-aaaa-0efb84f55024
+    m_ActionName: PlayerActions/MouseView[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 121d28ad-2424-49dc-a4a0-604b82e666ab
+    m_ActionName: PlayerActions/SpawnNPC[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8ac9b160-18f7-4a9c-a0a7-9d4ebc3796cc
+    m_ActionName: PlayerActions/SpawnArrow[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5265773465442797413}
+        m_TargetAssemblyTypeName: CubePlayerUI, Assembly-CSharp
+        m_MethodName: OnPointerDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 82bed23e-784d-449d-96f1-91e5854947a0
+    m_ActionName: PlayerActions/SpawnArrowTouch
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: PlayerActions
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &7274909049518571967
 GameObject:
   m_ObjectHideFlags: 0

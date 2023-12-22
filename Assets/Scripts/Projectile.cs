@@ -35,7 +35,7 @@ public class Projectile : MonoBehaviour
         livingTime += Time.fixedDeltaTime;
         if (livingTime >= timeToLive)
         {
-            Destroy(gameObject);
+            NetworkServer.Destroy(gameObject);
         }
     }
     
@@ -44,6 +44,12 @@ public class Projectile : MonoBehaviour
         if (other.CompareTag("Damageable"))
         {
             AttachToHitObject(other.gameObject);
+            return;
+        }
+
+        if (other.CompareTag("Landscape"))
+        {
+            NetworkServer.Destroy(gameObject);
         }
     }
     
