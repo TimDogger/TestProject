@@ -115,7 +115,10 @@ public class Movement : MonoBehaviour
         {
             transform.Rotate(Vector3.up * rotationDelta.y);
             mainCamera.transform.Rotate(Vector3.right * rotationDelta.x);
-            if (!blockRoll) mainCamera.transform.Rotate(Vector3.forward * -rotationDelta.z);
+            if (!blockRoll)
+            {
+                mainCamera.transform.Rotate(Vector3.forward * -rotationDelta.z);
+            }
         }
         else
         {

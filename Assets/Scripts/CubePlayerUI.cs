@@ -31,10 +31,15 @@ public class CubePlayerUI : MonoBehaviour
         movement.SetMovementInput(Vector2.zero);
     }
     
-    public void BlockRoll()
+    public void ToggleBlockRoll()
     {
         if (!movement) return;
         
         movement.BlockRoll = !movement.BlockRoll;
+        Image image = moveForwardButton.GetComponent<Image>();
+        if (image)
+        {
+            image.color = movement.BlockRoll ? Color.red : Color.white;
+        }
     }
 }
